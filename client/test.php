@@ -5,9 +5,9 @@ use PHPUnit\Framework\TestCase;
 require "./config.php";
 require "./functions.php";
 
-class PhpUnitTest extends TestCase
+class StackTest extends TestCase
 {
-    public function testDusite()
+    public function testDuSite()
     {
         $this->expectOutputString(config('version'));
         $result =  siteVersion();
