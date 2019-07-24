@@ -1,16 +1,24 @@
 <?php
 
+/**
+ * Displays site name.
+ */
 function siteName()
 {
     echo config('name');
 }
 
-
+/**
+ * Displays site version.
+ */
 function siteVersion()
 {
     echo config('version');
 }
 
+/**
+ * Website navigation.
+ */
 function navMenu($sep = ' | ')
 {
     $nav_menu = '';
@@ -22,7 +30,11 @@ function navMenu($sep = ' | ')
     echo trim($nav_menu, $sep);
 }
 
-
+/**
+ * Displays page title. It takes the data from 
+ * URL, it replaces the hyphens with spaces and 
+ * it capitalizes the words.
+ */
 function pageTitle()
 {
     $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : 'Home';
@@ -31,7 +43,11 @@ function pageTitle()
     echo ucwords(str_replace('/', '', str_replace('-', ' ', $page)));
 }
 
-
+/**
+ * Displays page content. It takes the data from 
+ * the static pages inside the pages/ directory.
+ * When not found, display the 404 error page.
+ */
 function pageContent()
 {
     $page = isset($_GET['page']) ? $_GET['page'] : 'home';
@@ -47,7 +63,31 @@ function pageContent()
     }
 }
 
+/**
+ * Check for required versions.
+ */
+function checkRequiredVersions()
+{
+    $nginx_version = $_SERVER['SERVER_SOFTWARE'];
+    $nginx_required_version = config('nginx_version');
+    $php_version = $_SERVER['PHP_VERSION'];
+    $php_required_version = config('php_version');
+
+//    printf("NGINX Version: %s /// %s\n", $nginx_version, $nginx_required_version);
+//    printf("PHP Version: %s /// %s\n", $php_version, $php_required_version);
+
+    if(strpos($nginx_version, $nginx_required_version) === false)
+        die("Wrong NGINX Version");
+
+    if(strpos($php_version, $php_required_version) === false)
+        die("Wrong PHP Version");
+}
+
+/**
+ * Starts everything and displays the template.
+ */
 function run()
 {
+    checkRequiredVersions();
     include config('template_path').'/template.php';
 }

@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php:7.1-fpm
 
 RUN apt-get update 
 
@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get install wget -y
 
 # install phpunit
-RUN wget https://phar.phpunit.de/phpunit-8.2.5.phar
-RUN chmod ugo+x phpunit-8.2.5.phar
-RUN mv phpunit-8.2.5.phar /usr/local/bin/phpunit
+RUN wget https://phar.phpunit.de/phpunit-6.5.phar
+RUN chmod ugo+x phpunit-6.5.phar
+RUN mv phpunit-6.5.phar /usr/local/bin/phpunit
 RUN phpunit --version

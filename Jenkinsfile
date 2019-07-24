@@ -1,15 +1,14 @@
 pipeline {
     agent
 
-
     stages {
-        stage("Preparation"){
+        stage("Preparation") {
             steps {
                 sh "apt-get update"
                 sh "apt-get install wget -y"
-                sh "wget https://phar.phpunit.de/phpunit-8.2.5.phar"
-                sh "chmod ugo+x phpunit-8.2.5.phar"
-                sh "mv phpunit-8.2.5.phar /usr/local/bin/phpunit"
+                sh "wget https://phar.phpunit.de/phpunit-6.5.phar"
+                sh "chmod ugo+x phpunit-6.5.phar"
+                sh "mv phpunit-6.5.phar /usr/local/bin/phpunit"
 
                 sh "php -v"
                 sh "phpunit --version"
@@ -22,7 +21,7 @@ pipeline {
             }
         }
 
-        stage("construction") {
+        stage("Construction") {
             steps {
                 sh "docker-compose build"
             }

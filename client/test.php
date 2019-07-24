@@ -7,7 +7,7 @@ require "./functions.php";
 
 class PhpUnitTest extends TestCase
 {
-    public function test()
+    public function testDusite()
     {
         $this->expectOutputString(config('version'));
         $result =  siteVersion();
@@ -16,5 +16,9 @@ class PhpUnitTest extends TestCase
     {
         $this->expectOutputString(config('name'));
         $result = siteName();
+    }
+    public function testPHP() 
+    {
+        $this->assertContains(config('php_version'), phpversion());
     }
 }
